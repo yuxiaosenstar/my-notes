@@ -5,11 +5,16 @@
   "main": "index.js",
   "scripts": {
     "dev": "vuepress dev docs",
-    "build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "deploy": "gh-pages -d dist",
+    "deploy:build": "npm run docs:build && gh-pages -d dist"
   },
   "author": "yuxiaosen",
   "license": "ISC",
   "devDependencies": {
     "vuepress": "^1.9.10"
+  },
+  "dependencies": {
+    "gh-pages": "^6.0.0"
   }
 }
