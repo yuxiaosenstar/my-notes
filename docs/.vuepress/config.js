@@ -6,10 +6,8 @@ module.exports = {
   theme: 'reco',
   themeConfig: {
     sidebar: [
-      {
-        title: 'js数组',
-        children: ['/array/', '/array/methods'],
-      },
+      '/array/',
+      '/array/methods',
       '/task/',
       '/permission/',
       '/tree/',
