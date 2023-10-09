@@ -6,6 +6,7 @@ module.exports = {
   theme: 'reco',
   themeConfig: {
     sidebar: [
+      '/css/',
       '/array/',
       '/array/methods',
       '/task/',
