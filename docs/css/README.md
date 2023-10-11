@@ -1,4 +1,7 @@
-# CSS — BEM 命名规范
+---
+title: CSS — BEM 命名规范
+sidebar: 'auto'
+---
 
 ## 前言：
 

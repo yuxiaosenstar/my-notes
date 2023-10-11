@@ -1,4 +1,7 @@
-# 浅谈：为啥vue和react都选择了Hooks🏂？
+---
+title: 浅谈：为啥vue和react都选择了Hooks🏂？
+sidebar: 'auto'
+---
 
 ## 📖阅读本文，你将:
 

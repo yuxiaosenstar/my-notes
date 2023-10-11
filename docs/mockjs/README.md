@@ -1,4 +1,7 @@
-# Mockjs 使用
+---
+title: Mockjs 使用
+sidebar: 'auto'
+---
 
 ## mockjs
 

@@ -1,4 +1,7 @@
-# 浅谈两种前端截图方式：Canvas 截图 vs SVG 截图
+---
+title: 浅谈两种前端截图方式：Canvas 截图 vs SVG 截图
+sidebar: 'auto'
+---
 
 ## 背景
 

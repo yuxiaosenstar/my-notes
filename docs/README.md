@@ -1,4 +1,7 @@
-# 关于本人
+---
+title: 关于本人
+sidebar: 'auto'
+---
 
 # 关于项目 About Project
 

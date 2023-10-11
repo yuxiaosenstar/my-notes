@@ -1,4 +1,7 @@
-# 关于element form的表单验证
+---
+title: 关于element form的表单验证
+sidebar: 'auto'
+---
 
 最近表单模块写的比较多，关于element的form表单验证，这里做个详细的归纳和总结。
 
