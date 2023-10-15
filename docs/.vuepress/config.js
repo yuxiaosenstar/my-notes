@@ -6,6 +6,7 @@ module.exports = {
   dest: './dist',
   base: '/my-notes/',
   theme: 'reco',
+  sidebar: 'auto',
   head: [
     [
       'meta',
@@ -30,6 +31,7 @@ module.exports = {
   ],
   themeConfig: {
     sidebar: [
+      '/mysql/',
       '/css/',
       '/array/',
       '/array/methods',
