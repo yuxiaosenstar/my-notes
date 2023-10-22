@@ -218,7 +218,7 @@ WHERE department_id = 90 ;
 算术运算符主要用于数学运算，其可以连接运算符前后的两个数值或表达式，对数值或表达式进行加
 （+）、减（-）、乘（\*）、除（/）和取模（%）运算。
 
-加法与减法运算符
+加法与减法运算符 dual虚表
 
 ```SQL
 mysql> SELECT 100, 100 + 0, 100 - 0, 100 + 50, 100 + 50 -30, 100 + 35.5, 100 - 35.5
@@ -236,13 +236,16 @@ FROM dual;
 > 一个整数类型的值对整数进行加法和减法操作，结果还是一个整数；
 > 一个整数类型的值对浮点数进行加法和减法操作，结果是一个浮点数；
 > 加法和减法的优先级相同，进行先加后减操作与进行先减后加操作的结果是一样的；
+>
+> null值如果参与运算，结果还是null
+>
 > 在 Java 中，+的左右两边如果有字符串，那么表示字符串的拼接。但是在 MySQL 中+只表示数值相加。如果遇到非数值类型，先尝试转成数值，如果转失败，就按 0 计算。（补充：MySQL 中字符串拼接要使用字符串函数 CONCAT()实现）
 
-### 乘法与除法运算符
+#### 乘法与除法运算符
 
 ```sql
-mysql>SELECT100,100*1,100*1.0,100/1.0,100/2,100+2*5/2,100/3,100
-DIV0FROMdual;
+mysql>SELECT 100,100*1,100*1.0,100/1.0,100/2,100+2*5/2,100/3,100 DIV 0 
+FROM dual;
 +-----+---------+-----------+-----------+---------+-----------------+---------+-----------+
 |100|100*1|100*1.0|100/1.0|100/2|100+2*5/2|100/3|100
 DIV0|
@@ -255,7 +258,7 @@ DIV0|
 
 ```sql
 #计算出员工的年基本工资
-SELECT employee_id,salary,salary*12annual_sal
+SELECT employee_id,salary,salary*12 annual_sal
 FROM employees;
 ```
 
@@ -267,12 +270,13 @@ FROM employees;
 > 一个数除以另一个数，除不尽时，结果为一个浮点数，并保留到小数点后 4 位；
 > 乘法和除法的优先级相同，进行先乘后除操作与先除后乘操作，得出的结果相同。在数学运算中，0 不能用作除数，在 MySQL 中，一个数除以 0 为 NULL。
 
-### 求模（求余）运算符
+#### 求模（求余）运算符
 
 将 t22 表中的字段 i 对 3 和 5 进行求模（求余）运算。
 
 ```sql
-mysql>SELECT12%3,12MOD5FROMdual;
+mysql>SELECT 12%3,12 MOD 5 
+FROM dual;
 +--------+----------+
 |12%3|12MOD5|
 +--------+----------+
@@ -295,7 +299,7 @@ WHERE employee_id MOD 2 = 0;
 为假则返回 0，其他情况则返回 NULL。
 比较运算符经常被用来作为 SELECT 查询语句的条件来使用，返回符合条件的结果记录。
 
-### 等号运算符
+#### 等号运算符（=）
 
 等号运算符（=）判断等号两边的值、字符串或表达式是否相等，如果相等则返回 1，不相等则返回
 0。
@@ -308,8 +312,8 @@ WHERE employee_id MOD 2 = 0;
 对比：SQL 中赋值符号使用 :=
 
 ```sql
-mysql> SELECT 1 = 1, 1 = '1', 1 = 0, 'a' = 'a', (5 + 3) = (2 + 6), '' = NULL , NULL =
-NULL;
+mysql> SELECT 1 = 1, 1 = '1', 1 = 0, 'a' = 'a', (5 + 3) = (2 + 6), '' = NULL , NULL = NULL
+FROM DUAL;
 +-------+---------+-------+-----------+-------------------+-----------+-------------+
 | 1 = 1 | 1 = '1' | 1 = 0 | 'a' = 'a' | (5 + 3) = (2 + 6) | '' = NULL | NULL = NULL |
 +-------+---------+-------+-----------+-------------------+-----------+-------------+
@@ -333,13 +337,15 @@ mysql> SELECT 1 = 2, 0 = 'abc', 1 = 'abc' FROM dual;
 SELECT employee_id,salary FROM employees WHERE salary = 10000;
 ```
 
-2．安全等于运算符 安全等于运算符（<=>）与等于运算符（=）的作用是相似的， 唯一的区别 是‘<=>’可
+#### 安全等于运算符（<=>）
+
+安全等于运算符（<=>）与等于运算符（=）的作用是相似的， 唯一的区别 是‘<=>’可
 以用来对 NULL 进行判断。在两个操作数均为 NULL 时，其返回值为 1，而不为 NULL；当一个操作数为 NULL
 时，其返回值为 0，而不为 NULL。
 
 ```sql
-mysql> SELECT 1 <=> '1', 1 <=> 0, 'a' <=> 'a', (5 + 3) <=> (2 + 6), '' <=> NULL,NULL
-<=> NULL FROM dual;
+mysql> SELECT 1 <=> '1', 1 <=> 0, 'a' <=> 'a', (5 + 3) <=> (2 + 6), '' <=> NULL,NULL <=> NULL 
+FROM dual;
 +-----------+---------+-------------+---------------------+-------------+-------------
 --+
 | 1 <=> '1' | 1 <=> 0 | 'a' <=> 'a' | (5 + 3) <=> (2 + 6) | '' <=> NULL | NULL <=>
@@ -363,7 +369,9 @@ SELECT employee_id,commission_pct FROM employees WHERE commission_pct <=> 0.40;
 可以看到，使用安全等于运算符时，两边的操作数的值都为 NULL 时，返回的结果为 1 而不是 NULL，其他
 返回结果与等于运算符相同。
 
-3．不等于运算符 不等于运算符（<>和!=）用于判断两边的数字、字符串或者表达式的值是否不相等，
+#### 不等于运算符（<>和!=）
+
+不等于运算符（<>和!=）用于判断两边的数字、字符串或者表达式的值是否不相等，
 如果不相等则返回 1，相等则返回 0。不等于运算符不能判断 NULL 值。如果两边的值有任意一个为 NULL，
 或两边都为 NULL，则结果为 NULL。 SQL 语句示例如下：
 
@@ -379,7 +387,9 @@ mysql> SELECT 1 <> 1, 1 != 2, 'a' != 'b', (3+4) <> (2+6), 'a' != NULL, NULL <> N
 
 此外，还有非符号类型的运算符：
 
-4.空运算符空运算符（ISNULL 或者 ISNULL）判断一个值是否为 NULL，如果为 NULL 则返回 1，否则返回 0。SQL 语句示例如下：
+#### 空运算符空运算符（IS NULL 或者 ISNULL）
+
+空运算符空运算符（IS NULL 或者 ISNULL）判断一个值是否为 NULL，如果为 NULL 则返回 1，否则返回 0。SQL 语句示例如下：
 
 ```sql
 mysql> SELECT NULL IS NULL, ISNULL(NULL), ISNULL('a'), 1 IS NULL;
@@ -405,8 +415,10 @@ FROM employees
 WHERE manager_id IS NULL;
 ```
 
-5. 非空运算符 非空运算符（IS NOT NULL）判断一个值是否不为 NULL，如果不为 NULL 则返回 1，否则返
-   回 0。 SQL 语句示例如下：
+#### 非空运算符（IS NOT NULL）
+
+非空运算符（IS NOT NULL）判断一个值是否不为 NULL，如果不为 NULL 则返回 1，否则返
+回 0。 SQL 语句示例如下：
 
 ```sql
 mysql> SELECT NULL IS NOT NULL, 'a' IS NOT NULL, 1 IS NOT NULL;
@@ -425,8 +437,10 @@ SELECT employee_id,commission_pct FROM employees WHERE NOT commission_pct <=> NU
 SELECT employee_id,commission_pct FROM employees WHERE NOT ISNULL(commission_pct);
 ```
 
-6. 最小值运算符 语法格式为：LEAST(值 1，值 2，...，值 n)。其中，“值 n”表示参数列表中有 n 个值。在有
-   两个或多个参数的情况下，返回最小值。
+#### 最小值运算符 (LEAST)
+
+最小值运算符 语法格式为：LEAST(值 1，值 2，...，值 n)。其中，“值 n”表示参数列表中有 n 个值。在有
+两个或多个参数的情况下，返回最小值。
 
 ```sql
 mysql> SELECT LEAST (1,0,2), LEAST('b','a','c'), LEAST(1,NULL,2);
@@ -441,8 +455,10 @@ mysql> SELECT LEAST (1,0,2), LEAST('b','a','c'), LEAST(1,NULL,2);
 由结果可以看到，当参数是整数或者浮点数时，LEAST 将返回其中最小的值；当参数为字符串时，返回字
 母表中顺序最靠前的字符；当比较值列表中有 NULL 时，不能判断大小，返回值为 NULL。
 
-7. 最大值运算符 语法格式为：GREATEST(值 1，值 2，...，值 n)。其中，n 表示参数列表中有 n 个值。当有
-   两个或多个参数时，返回值为最大值。假如任意一个自变量为 NULL，则 GREATEST()的返回值为 NULL。
+#### 最大值运算符 (GREATEST)
+
+最大值运算符 语法格式为：GREATEST(值 1，值 2，...，值 n)。其中，n 表示参数列表中有 n 个值。当有
+两个或多个参数时，返回值为最大值。假如任意一个自变量为 NULL，则 GREATEST()的返回值为 NULL。
 
 ```sql
 mysql> SELECT GREATEST(1,0,2), GREATEST('b','a','c'), GREATEST(1,NULL,2);
@@ -457,8 +473,10 @@ mysql> SELECT GREATEST(1,0,2), GREATEST('b','a','c'), GREATEST(1,NULL,2);
 由结果可以看到，当参数中是整数或者浮点数时，GREATEST 将返回其中最大的值；当参数为字符串时，
 返回字母表中顺序最靠后的字符；当比较值列表中有 NULL 时，不能判断大小，返回值为 NULL。
 
-8. BETWEEN AND 运算符 BETWEEN 运算符使用的格式通常为 SELECT D FROM TABLE WHERE C BETWEEN A
-   AND B，此时，当 C 大于或等于 A，并且 C 小于或等于 B 时，结果为 1，否则结果为 0。
+#### BETWEEN AND 运算符
+
+BETWEEN AND 运算符 BETWEEN 运算符使用的格式通常为 SELECT D FROM TABLE WHERE C BETWEEN A
+AND B，此时，当 C 大于或等于 A，并且 C 小于或等于 B 时，结果为 1，否则结果为 0。
 
 ```sql
 mysql> SELECT 1 BETWEEN 0 AND 1, 10 BETWEEN 11 AND 12, 'b' BETWEEN 'a' AND 'c';
@@ -476,8 +494,10 @@ FROM employees
 WHERE salary BETWEEN 2500 AND 3500;
 ```
 
-9. IN 运算符 IN 运算符用于判断给定的值是否是 IN 列表中的一个值，如果是则返回 1，否则返回 0。如果给
-   定的值为 NULL，或者 IN 列表中存在 NULL，则结果为 NULL。
+#### IN 运算符
+
+IN 运算符 IN 运算符用于判断给定的值是否是 IN 列表中的一个值，如果是则返回 1，否则返回 0。如果给
+定的值为 NULL，或者 IN 列表中存在 NULL，则结果为 NULL。
 
 ```sql
 mysql> SELECT 'a' IN ('a','b','c'), 1 IN (2,3), NULL IN ('a','b'), 'a' IN ('a', NULL);
@@ -495,8 +515,10 @@ FROM employees
 WHERE manager_id IN (100, 101, 201);
 ```
 
-10. NOT IN 运算符 NOT IN 运算符用于判断给定的值是否不是 IN 列表中的一个值，如果不是 IN 列表中的一
-    个值，则返回 1，否则返回 0。
+#### NOT IN 运算符
+
+NOT IN 运算符用于判断给定的值是否不是 IN 列表中的一个值，如果不是 IN 列表中的一
+个值，则返回 1，否则返回 0。
 
 ```sql
 mysql> SELECT 'a' NOT IN ('a','b','c'), 1 NOT IN (2,3);
@@ -508,9 +530,11 @@ mysql> SELECT 'a' NOT IN ('a','b','c'), 1 NOT IN (2,3);
 1 row in set (0.00 sec)
 ```
 
-11. LIKE 运算符 LIKE 运算符主要用来匹配字符串，通常用于模糊匹配，如果满足条件则返回 1，否则返回
-    0。如果给定的值或者匹配条件为 NULL，则返回结果为 NULL。
-    LIKE 运算符通常使用如下通配符：
+#### LIKE 运算符
+
+LIKE 运算符主要用来匹配字符串，通常用于模糊匹配，如果满足条件则返回 1，否则返回
+0。如果给定的值或者匹配条件为 NULL，则返回结果为 NULL。
+LIKE 运算符通常使用如下通配符：
 
 ```sql
 “%”：匹配0个或多个字符。
@@ -537,18 +561,18 @@ WHERE first_name LIKE 'S%';
 
 ```sql
 SELECT last_name
-FROM employees
+FROM employees 
 WHERE last_name LIKE '_o%';
 ```
 
-### ESCAPE
+#### ESCAPE 转义符
 
 回避特殊符号的：使用转义符。例如：将[%]转为[$%]、[]转为[$]，然后再加上[ESCAPE‘$’]即可。
 
 ```sql
 SELECT job_id
 FROM jobs
-WHERE job_id LIKE ‘IT\_%‘;
+WHERE job_id LIKE 'IT\_%';
 ```
 
 如果使用\表示转义，要省略 ESCAPE。如果不是\，则要加上 ESCAPE。
@@ -556,10 +580,10 @@ WHERE job_id LIKE ‘IT\_%‘;
 ```sql
 SELECT job_id
 FROM jobs
-WHERE job_id LIKE ‘IT$_%‘ escape ‘$‘;
+WHERE job_id LIKE 'IT$_%' ESCAPE '$';
 ```
 
-### REGEXP 运算符
+#### REGEXP 运算符
 
 REGEXP 运算符用来匹配字符串，语法格式为： expr REGEXP 匹配条件 。如果 expr 满足匹配条件，返回
 NULL 1；如果不满足，则返回 0. 若 expr 或匹配条件任意一个, 则结果为 NULL.
