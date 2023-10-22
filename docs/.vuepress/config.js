@@ -45,6 +45,8 @@ module.exports = {
       '/capture/',
     ],
     lastUpdated: '上次更新时间',
+    displayAllHeaders: true,
+    sidebarDepth: 2,
     // 假定 GitHub。也可以是一个完整的 GitLab 网址
     repo: 'https://github.com/yuxiaosenstar/my-notes',
   },
