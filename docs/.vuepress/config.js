@@ -41,8 +41,10 @@ module.exports = {
       '/element/',
       '/mockjs/',
       '/hooks/',
-      '/vue/',
-      '/vue/comp',
+      {
+        title: 'vue',
+        children: ['/vue/', '/vue/comp', '/vue/ts'],
+      },
       '/capture/',
     ],
     lastUpdated: '上次更新时间',
