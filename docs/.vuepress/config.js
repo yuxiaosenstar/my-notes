@@ -42,6 +42,7 @@ module.exports = {
       '/mockjs/',
       '/hooks/',
       '/vue/',
+      '/vue/comp',
       '/capture/',
     ],
     lastUpdated: '上次更新时间',
