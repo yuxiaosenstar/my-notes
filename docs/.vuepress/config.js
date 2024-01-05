@@ -46,6 +46,7 @@ module.exports = {
         children: ['/vue/', '/vue/comp', '/vue/ts'],
       },
       '/capture/',
+      '/maven/',
     ],
     lastUpdated: '上次更新时间',
     displayAllHeaders: true,

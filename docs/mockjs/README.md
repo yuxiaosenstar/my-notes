@@ -18,13 +18,12 @@ const data = Mock.mock({
   'list|20-60': [
     {
       id: '@increment(1)',
-      title: '@ctitle',
+      title: '@ctitle',·
       content: '@cparagraph',
       add_time: '@date(yyyy-MM-dd hh:mm:ss)',
     },
   ],
 })
-
 // 删除
 Mock.mock('/api/delete/news', 'post', (options) => {
   let body = JSON.parse(options.body)
