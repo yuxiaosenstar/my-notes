@@ -59,3 +59,21 @@ source ~/.bash_profile
 ![maven7](./images/maven7.png)
 
 完成！
+
+## window 下安装 maven
+
+其余步骤同上
+
+### 配置环境变量
+
+右键“计算机”，选择“属性”，之后点击“高级系统设置”，点击“环境变量”，来设置环境变量，有以下系统变量需要配置：
+
+新建系统变量 MAVEN_HOME 变量值：E:\Maven\apache-maven-3.3.9
+
+编辑系统变量 Path 添加变量值： ;%MAVEN_HOME%\bin
+
+![maven8](./images/maven8.png)
+
+![maven9](./images/maven9.png)
+
+注意：注意多个值之间需要有分号隔开，然后点击确定。
