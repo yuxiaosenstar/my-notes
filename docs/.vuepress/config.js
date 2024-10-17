@@ -31,6 +31,7 @@ module.exports = {
   ],
   themeConfig: {
     sidebar: [
+      '/rollup/',
       '/mysql/',
       '/css/',
       '/array/',
